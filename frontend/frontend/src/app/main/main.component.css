@@ -49,3 +49,9 @@ h1.example-app-name {
   white-space: nowrap;
 
 }
+
+.fab {
+  position: fixed;
+  bottom: 60px;
+  right: 60px;
+}

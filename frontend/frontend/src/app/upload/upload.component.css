@@ -1,0 +1,14 @@
+.example-is-mobile .example-toolbar {
+  position: fixed;
+  z-index: 2;
+}
+
+
+.full-width {
+  width: 100%;
+}
+
+.input_card {
+  width: 400px;
+  margin: 20px auto;
+}
