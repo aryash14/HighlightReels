@@ -1,1 +1,55 @@
-<p>main works!</p>
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+  <mat-toolbar color="primary" class="example-toolbar">
+    <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
+    <h1 class="example-app-name">Highlight Reels</h1>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="example-sidenav-container"
+                         [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
+                 [fixedInViewport]="mobileQuery.matches" fixedTopGap="56"
+    [opened]='!mobileQuery.matches'>
+
+      <div class="sidenav_content">
+        <div mat-subheader>Filter</div>
+
+        <form class="form" >
+          <mat-form-field appearance="outline">
+            <mat-label>Select a sport</mat-label>
+            <mat-select>
+              <mat-option value="one">Basketball</mat-option>
+              <mat-option value="two">Baseball</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Select a team</mat-label>
+            <input type="text"
+                   placeholder="Search"
+                   matInput
+                   [formControl]="search"
+                   [matAutocomplete]="auto">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+              <mat-option *ngFor="let option of filteredOptions | async " [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </form>
+      </div>
+
+
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <app-player [highlight]="example_highlight"></app-player>
+
+      <div class="other_vid">
+        <div style="width: 20px; display: inline-block"></div>
+        <app-play-button [highlight]="x" *ngFor="let x of example_highlight_arr"></app-play-button>
+      </div>
+
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

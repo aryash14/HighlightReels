@@ -1,0 +1,38 @@
+.youtube_container {
+  width: 100%;
+  background-color: #000;
+  horiz-align: center;
+}
+
+iframe {
+  margin: auto;
+  width: 100%;
+  horiz-align: center;
+  display: block;
+}
+
+.title {
+  font-size: 22px;
+}
+
+.icon_btn {
+  display: inline-block;
+}
+
+.icon_text_btn {
+  display: inline-block;
+  padding-right: 10px;
+}
+
+.video_info {
+  padding: 20px;
+}
+
+.info {
+  display: inline-block;
+}
+
+.action {
+  display: inline-block;
+  float: right;
+}

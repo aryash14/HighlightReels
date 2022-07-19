@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Highlight} from "../Highlight";
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-player',
@@ -6,10 +8,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./player.component.css']
 })
 export class PlayerComponent implements OnInit {
-
-  constructor() { }
+  @Input() highlight: Highlight;
+  url: SafeResourceUrl;
+  constructor(public domSanitizer: DomSanitizer) {
+    this.highlight  = new Highlight('', '','', '')
+    this.url = this.highlight.url;
+  }
 
   ngOnInit(): void {
+    this.url = this.highlight.url;
+    this.url  = this.domSanitizer.bypassSecurityTrustResourceUrl(this.highlight.url);
   }
 
 }
