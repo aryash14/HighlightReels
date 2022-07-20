@@ -8,16 +8,16 @@ import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
   styleUrls: ['./player.component.css']
 })
 export class PlayerComponent implements OnInit {
-  @Input() highlight: Highlight;
-  url: SafeResourceUrl;
+  @Input() highlight: Highlight = new  Highlight('', '', '', '');
+  url: SafeResourceUrl | undefined;
   constructor(public domSanitizer: DomSanitizer) {
-    this.highlight  = new Highlight('', '','', '')
-    this.url = this.highlight.url;
+
   }
 
   ngOnInit(): void {
-    this.url = this.highlight.url;
-    this.url  = this.domSanitizer.bypassSecurityTrustResourceUrl(this.highlight.url);
+    // @ts-ignore
+    this.highlight.url  = this.domSanitizer.bypassSecurityTrustResourceUrl(this.highlight.url);
+
   }
 
 }
