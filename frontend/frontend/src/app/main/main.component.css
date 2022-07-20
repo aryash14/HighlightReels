@@ -55,3 +55,20 @@ h1.example-app-name {
   bottom: 60px;
   right: 60px;
 }
+
+.previous-arrow {
+  position: absolute;
+  top: 200px;
+  left: 25px;
+  z-index: 2;
+  color: rgba(29, 189, 240, 0.87);
+
+}
+
+.next-arrow {
+  position: absolute;
+  top: 200px;
+  right: 25px;
+  z-index: 2;
+  color: rgba(29, 189, 240, 0.87);
+}

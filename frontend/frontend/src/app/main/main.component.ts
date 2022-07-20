@@ -14,6 +14,7 @@ import {H} from "@angular/cdk/keycodes";
 export class MainComponent implements OnInit {
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
+  private ptr = 0;
   filteredOptions: Observable<string[]>;
 
   teams: any;
@@ -32,12 +33,12 @@ export class MainComponent implements OnInit {
 
     );
 
-    this.example_highlight = new Highlight('Al Horford PLAYOFF CAREER HIGH!', 'Video desciption...', 'https://www.youtube.com/watch?v=bil6CoG7xm0', '1');
-    this.example_highlight_arr = [this.example_highlight,
+    this.example_highlight_arr = [new Highlight('Al Horford PLAYOFF CAREER HIGH!', 'Video desciption...', 'https://www.youtube.com/watch?v=bil6CoG7xm0', '1'),
       new Highlight('julian edelman’s Incredible catch against the falcons! ', 'Video desciption...', 'https://www.youtube.com/watch?v=4SiUNdkIwzQ', '1'),
       new Highlight('Ja\'Marr Chase completes a 3rd & 27! ', 'Video desciption...', 'https://www.youtube.com/watch?v=nYvbptky-Uk', '1'),
-
+      
     ]
+    this.example_highlight = this.example_highlight_arr[this.ptr];
   }
 
   ngOnInit(): void {
@@ -47,6 +48,22 @@ export class MainComponent implements OnInit {
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
     return this.teams.filter((option: string) => option.toLowerCase().includes(filterValue));
+  }
+
+  public next_arrow():void {
+    if (this.ptr == this.example_highlight_arr.length - 1)
+      return;
+    this.ptr++;
+    console.log("Next ptr");
+    this.example_highlight = this.example_highlight_arr[this.ptr];
+  }
+
+  public prev_arrow():void {
+    if (this.ptr == 0)
+      return;
+    this.ptr--;
+    console.log("Prev ptr");
+    this.example_highlight = this.example_highlight_arr[this.ptr];
   }
 
 }

@@ -49,7 +49,16 @@
         <div style="width: 20px; display: inline-block"></div>
         <app-play-button [highlight]="x" *ngFor="let x of example_highlight_arr"></app-play-button>
       </div>
-
+      <div class="next-arrow">
+          <button mat-icon-button color="primary" aria-label="Skip to next video" (click) = "next_arrow()">
+            <mat-icon>skip_next</mat-icon>
+          </button>
+      </div>
+      <div class="previous-arrow">
+        <button mat-icon-button aria-label="Skip to previous video" (click) = "prev_arrow()">
+          <mat-icon>skip_previous</mat-icon>
+        </button>
+    </div>
       <a class="fab" mat-fab color="primary" aria-label="Example icon button with a delete icon" routerLink="upload">
         <mat-icon>add</mat-icon>
       </a>
