@@ -11,7 +11,7 @@ export class PlayButtonComponent implements OnInit {
   @Input() highlight: Highlight;
 
   constructor() {
-    this.highlight  = new Highlight('', '','', '')
+    this.highlight  = new Highlight('', '','', '', '')
   }
   ngOnInit(): void {
   }

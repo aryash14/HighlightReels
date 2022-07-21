@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl} from "@angular/forms";
+import {UntypedFormControl} from "@angular/forms";
 import {map, Observable, startWith} from "rxjs";
 
 @Component({
@@ -10,7 +10,7 @@ import {map, Observable, startWith} from "rxjs";
 export class UploadComponent implements OnInit {
 
 
-  team = new FormControl('');
+  team = new UntypedFormControl('');
   filteredOptions: Observable<string[]>;
   teams = ['team a', 'team b', 'team c']
   constructor() {

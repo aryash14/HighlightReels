@@ -8,7 +8,7 @@ import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
   styleUrls: ['./player.component.css']
 })
 export class PlayerComponent implements OnInit {
-  @Input() highlight: Highlight = new  Highlight('', '', '', '');
+  @Input() highlight: Highlight = new  Highlight('', '', '', '', '');
   url: SafeResourceUrl | undefined;
   constructor(public domSanitizer: DomSanitizer) {
 
@@ -16,7 +16,6 @@ export class PlayerComponent implements OnInit {
 
   ngOnInit(): void {
     // @ts-ignore
-    this.highlight.url  = this.domSanitizer.bypassSecurityTrustResourceUrl(this.highlight.url);
 
   }
 

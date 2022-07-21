@@ -3,3 +3,9 @@
   display: inline-block;
   margin: 10px 0 10px 5px;
 }
+
+.des {
+  width: 300px;
+  display: block;
+  overflow-wrap: break-word;
+}

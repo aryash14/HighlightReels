@@ -20,7 +20,8 @@ import { PlayButtonComponent } from './play-button/play-button.component';
     MainComponent,
     PlayerComponent,
     UploadComponent,
-    PlayButtonComponent
+    PlayButtonComponent,
+
   ],
   imports: [
     BrowserModule,
