@@ -36,13 +36,17 @@ export class MainComponent implements OnInit {
     );
 
     this.example_highlight_arr = [
-      new Highlight('Al Horford PLAYOFF CAREER HIGH!', 'Video desciption...',
+      new Highlight('Al Horford PLAYOFF CAREER HIGH!', 'Celtics beat the Warriors!',
       this.domSanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/bil6CoG7xm0'), '1', 'bil6CoG7xm0'),
-
       new Highlight('TYREEK HILL LINED UP AGAINST COACH OTB!\n ', 'Video desciption...',
         this.domSanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/Y__9f1gymew'), '1', 'Y__9f1gymew'),
-      new Highlight('julian edelman’s Incredible catch against the falcons! \n ', 'Video desciption...',
-        this.domSanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/4SiUNdkIwzQ'), '1', '4SiUNdkIwzQ')
+      new Highlight('julian edelman’s Incredible catch against the falcons! \n ', 'Inhuman Reaction!',
+        this.domSanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/4SiUNdkIwzQ'), '1', '4SiUNdkIwzQ'),
+      new Highlight('3 point contest', 'Klay vs Steph', 
+      this.domSanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/bDObjh4gALU'), '1', 'bDObjh4gALU'),
+      new Highlight('Football highlight', 'College Football Best Plays of Bowl Season | 2021-22', 
+        this.domSanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/8InenAzyj34'), '1', '8InenAzyj34'),
+      //https://www.youtube.com/watch?v=CZFQPupSEnk&t=666s
     ];
     this.example_highlight = this.example_highlight_arr[this.ptr]
   }
