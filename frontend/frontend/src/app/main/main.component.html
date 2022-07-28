@@ -16,11 +16,10 @@
         <form class="form" >
           <mat-form-field appearance="outline">
             <mat-label>Select a sport</mat-label>
-            <mat-select>
-              <mat-option *ngFor="let x of sport_team">{{x.name}}</mat-option>
+            <mat-select [formControl]="sport_selected_id" >
+              <mat-option *ngFor="let x of sport_team" [value]="x._id">{{x.name}}</mat-option>
             </mat-select>
           </mat-form-field>
-
 
           <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Select a team</mat-label>
