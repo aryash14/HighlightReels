@@ -5,8 +5,9 @@ import {map, Observable, startWith,} from "rxjs";
 import {UntypedFormControl, ReactiveFormsModule} from "@angular/forms";
 import {Highlight} from "../Highlight";
 import {H} from "@angular/cdk/keycodes";
-import { PlayerComponent} from "../player/player.component";
+import {PlayerComponent} from "../player/player.component";
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import Axios from "axios";
 
 @Component({
   selector: 'app-main',
@@ -25,6 +26,9 @@ export class MainComponent implements OnInit {
   ptr = 0
   @ViewChild(PlayerComponent) child: PlayerComponent | undefined;
 
+  sport_index = 0;
+  sport_team: any;
+
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public domSanitizer: DomSanitizer) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -37,7 +41,7 @@ export class MainComponent implements OnInit {
 
     this.example_highlight_arr = [
       new Highlight('Al Horford PLAYOFF CAREER HIGH!', 'Video desciption...',
-      this.domSanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/bil6CoG7xm0'), '1', 'bil6CoG7xm0'),
+        this.domSanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/bil6CoG7xm0'), '1', 'bil6CoG7xm0'),
 
       new Highlight('TYREEK HILL LINED UP AGAINST COACH OTB!\n ', 'Video desciption...',
         this.domSanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/Y__9f1gymew'), '1', 'Y__9f1gymew'),
@@ -47,8 +51,14 @@ export class MainComponent implements OnInit {
     this.example_highlight = this.example_highlight_arr[this.ptr]
   }
 
-  ngOnInit(): void {
+  private async getSportTeam() {
+    return (await Axios.get("http://localhost:3000/sportteam")).data;
+  }
+
+  async ngOnInit(): Promise<any> {
     this.teams = ['team a', 'team b', 'team c']
+    this.sport_team = await this.getSportTeam()
+    console.log(this.sport_team)
   }
 
   private _filter(value: string): string[] {
@@ -76,5 +86,6 @@ export class MainComponent implements OnInit {
     // @ts-ignore
     this.example_highlight = this.example_highlight_arr[this.ptr];
     // @ts-ignore
-    this.child.ngOnInit();  }
+    this.child.ngOnInit();
+  }
 }
