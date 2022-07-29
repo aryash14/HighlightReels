@@ -7,6 +7,8 @@ import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
   templateUrl: './player.component.html',
   styleUrls: ['./player.component.css']
 })
+
+// PlayerComponent class
 export class PlayerComponent implements OnInit {
   @Input() highlight: Highlight = new  Highlight('', '', '', '', '');
   url: SafeResourceUrl | undefined;

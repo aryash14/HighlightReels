@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// highlight Schema for MongoDB
 let highlightSchema = new Schema(
     {
         title: {type: String, required: true},

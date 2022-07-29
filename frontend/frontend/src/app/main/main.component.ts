@@ -14,6 +14,8 @@ import Axios from "axios";
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
+
+// MainComponent class
 export class MainComponent implements OnInit {
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
@@ -42,7 +44,7 @@ export class MainComponent implements OnInit {
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.search = new UntypedFormControl('');
 
-
+    // Call filter on new selected sports
     this.sport_selected_id.valueChanges.subscribe( sport_id => {
         this.get_filtered_teams(sport_id)
       }
@@ -61,6 +63,7 @@ export class MainComponent implements OnInit {
 
   }
 
+  // Call filter on new selected teams
   private get_filtered_teams(sport_id: any) {
     let team = [];
     this.team_names = []
@@ -94,6 +97,7 @@ export class MainComponent implements OnInit {
     return this.team_names.filter((option: string) => option.toLowerCase().includes(filterValue));
   }
 
+  // Navigate to next video in the array
   next_arrow(): void {
     if (this.ptr == this.example_highlight_arr.length - 1) {
       return;
@@ -106,6 +110,7 @@ export class MainComponent implements OnInit {
 
   }
 
+  // Navigates to previous video in the array
   prev_arrow(): void {
     if (this.ptr == 0) {
       return;

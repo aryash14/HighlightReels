@@ -6,6 +6,8 @@ import {Highlight} from "../Highlight";
   templateUrl: './play-button.component.html',
   styleUrls: ['./play-button.component.css']
 })
+
+//PlayButtonComponent class
 export class PlayButtonComponent implements OnInit {
 
   @Input() highlight: Highlight;

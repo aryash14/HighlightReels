@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// Sport schema for MongoDB
 let SportSchema = new Schema(
     {
         name: {type: String, required: true},

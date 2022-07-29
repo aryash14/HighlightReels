@@ -11,6 +11,8 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   templateUrl: './upload.component.html',
   styleUrls: ['./upload.component.css']
 })
+
+// Uploadcomponent Class
 export class UploadComponent implements OnInit {
   team = new UntypedFormControl('');
   filteredOptions: Observable<string[]>;
@@ -45,11 +47,13 @@ export class UploadComponent implements OnInit {
     console.log(this.sport_team)
 
   }
+
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
     return this.team_names.filter((option: string) => option.toLowerCase().includes(filterValue));
   }
 
+  // Find teams allowed based on selected sport
   private get_filtered_teams(sport_id: any) {
 
     let team = [];
@@ -74,6 +78,7 @@ export class UploadComponent implements OnInit {
     return (await Axios.get("http://localhost:3000/sportteam")).data;
   }
 
+  // Post data to MongoDB database
   upload() {
     Axios.post("http://localhost:3000/highlight/upload", {
       title: this.title,
