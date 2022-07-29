@@ -9,33 +9,44 @@
   </mat-card-header>
   <mat-card-content>
     <mat-form-field class="full-width" appearance="outline">
-      <mat-label>Title</mat-label>
-      <input matInput>
+      <mat-label >Title</mat-label>
+      <input [(ngModel)]="title" matInput>
     </mat-form-field>
 
     <mat-form-field class="full-width" appearance="outline">
       <mat-label>Description</mat-label>
-      <textarea matInput></textarea>
+      <textarea matInput  [(ngModel)]="desc"> </textarea>
     </mat-form-field>
 
     <mat-form-field class="full-width" appearance="outline">
       <mat-label>Youtube URL</mat-label>
-      <input matInput>
+      <input matInput [(ngModel)]="youtube_url">
     </mat-form-field>
 
-    <mat-form-field class="full-width" appearance="outline">
-      <mat-label>Select a team</mat-label>
-      <input type="text"
-             placeholder="Search"
-             matInput
-             [formControl]="team"
-             [matAutocomplete]="auto">
-      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-        <mat-option *ngFor="let option of filteredOptions | async " [value]="option">
-          {{option}}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-    <button mat-raised-button class="full-width">Upload</button>
+
+    <form class="form" >
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Select a sport</mat-label>
+        <mat-select [formControl]="sport_selected_id" >
+          <mat-option *ngFor="let x of sport_team" [value]="x._id">{{x.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Select a team</mat-label>
+        <input type="text"
+               placeholder="Search"
+               matInput
+               [formControl]="search"
+               [matAutocomplete]="auto">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredOptions | async " [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+
+    <button mat-raised-button class="full-width" (click)="upload()">Upload</button>
   </mat-card-content>
 </mat-card>

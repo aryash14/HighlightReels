@@ -9,10 +9,13 @@ import { UploadComponent } from './upload/upload.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
+// import { MatSnackBar } from '@angular/material/snack-bar';
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
 import {MatListModule} from "@angular/material/list";
 import { PlayButtonComponent } from './play-button/play-button.component';
+import { FormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,9 @@ import { PlayButtonComponent } from './play-button/play-button.component';
     MatAutocompleteModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatListModule
+    MatListModule,
+    FormsModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

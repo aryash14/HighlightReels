@@ -40,7 +40,7 @@
 
     </mat-sidenav>
 
-    <mat-sidenav-content>
+    <mat-sidenav-content *ngIf="loaded">
       <app-player [highlight]="example_highlight"></app-player>
 
       <div class="other_vid">

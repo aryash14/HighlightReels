@@ -1,5 +1,5 @@
-import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
-
+import { DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
+import Axios from "axios";
 export class Highlight {
   title = '';
   desc = '';
@@ -19,4 +19,18 @@ export class Highlight {
     // this.url += '?autoplay=1';
 
   }
+
+  static async getHighlightFromJSONs() {
+    let j = await Axios.get('http://localhost:3000/highlight');
+    let HighlightArray = []
+    for (const x of j.data) {
+
+      let url = 'https://www.youtube.com/embed/' + x.youtube_id;
+      HighlightArray.push(new Highlight(x.title, x.desc, url, x._id, x.youtube_id));
+    }
+    console.log(HighlightArray)
+    return HighlightArray;
+  }
 }
+
+

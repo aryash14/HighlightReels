@@ -22,7 +22,7 @@ export class MainComponent implements OnInit {
   teams: any;
   team_names = [];
   search = new UntypedFormControl('');
-  example_highlight: Highlight;
+  example_highlight: any;
   public example_highlight_arr: (Highlight | any)[];
   ptr = 0
   @ViewChild(PlayerComponent) child: PlayerComponent | undefined;
@@ -30,6 +30,7 @@ export class MainComponent implements OnInit {
   sport_selected_id = new UntypedFormControl('');
   sport_team: any;
   filter_team: any;
+  loaded = false;
 
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public domSanitizer: DomSanitizer) {
     this.filteredOptions = this.search.valueChanges.pipe(
@@ -46,25 +47,21 @@ export class MainComponent implements OnInit {
         this.get_filtered_teams(sport_id)
       }
     )
+    this.example_highlight_arr = []
+    Highlight.getHighlightFromJSONs()
+      .then((res) => {
+        this.example_highlight_arr = res;
+        for (const x of this.example_highlight_arr) {
+          x.url = this.domSanitizer.bypassSecurityTrustResourceUrl(x.url);
+        }
+        this.example_highlight = this.example_highlight_arr[this.ptr];
+        this.loaded = true
+    });
 
-    this.example_highlight_arr = [
-      new Highlight('Al Horford PLAYOFF CAREER HIGH!', 'Celtics beat the Warriors!',
-      this.domSanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/bil6CoG7xm0'), '1', 'bil6CoG7xm0'),
-      new Highlight('TYREEK HILL LINED UP AGAINST COACH OTB!\n ', 'Video desciption...',
-        this.domSanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/Y__9f1gymew'), '1', 'Y__9f1gymew'),
-      new Highlight('julian edelman’s Incredible catch against the falcons! \n ', 'Inhuman Reaction!',
-        this.domSanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/4SiUNdkIwzQ'), '1', '4SiUNdkIwzQ'),
-      new Highlight('3 point contest', 'Klay vs Steph',
-      this.domSanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/bDObjh4gALU'), '1', 'bDObjh4gALU'),
-      new Highlight('Football highlight', 'College Football Best Plays of Bowl Season | 2021-22',
-        this.domSanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/8InenAzyj34'), '1', '8InenAzyj34'),
-      //https://www.youtube.com/watch?v=CZFQPupSEnk&t=666s
-    ];
-    this.example_highlight = this.example_highlight_arr[this.ptr]
+
   }
 
   private get_filtered_teams(sport_id: any) {
-
     let team = [];
     this.team_names = []
     for (const x of this.sport_team) {
@@ -88,7 +85,6 @@ export class MainComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<any> {
-
     this.sport_team = await this.getSportTeam()
     console.log(this.sport_team)
   }
@@ -120,4 +116,5 @@ export class MainComponent implements OnInit {
     // @ts-ignore
     this.child.ngOnInit();
   }
+
 }
