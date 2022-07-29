@@ -1,3 +1,4 @@
+//imports
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ChangeDetectorRef, OnDestroy} from '@angular/core';
 import {MediaMatcher} from '@angular/cdk/layout';
@@ -9,6 +10,7 @@ import {PlayerComponent} from "../player/player.component";
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import Axios from "axios";
 
+//associating the html and css with component
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -20,7 +22,7 @@ export class MainComponent implements OnInit {
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
   filteredOptions: Observable<string[]>;
-
+  //declaring variables
   teams: any;
   team_names = [];
   search = new UntypedFormControl('');
@@ -33,7 +35,7 @@ export class MainComponent implements OnInit {
   sport_team: any;
   filter_team: any;
   loaded = false;
-
+  //construcutor for our main component
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public domSanitizer: DomSanitizer) {
     this.filteredOptions = this.search.valueChanges.pipe(
       startWith(''),
@@ -49,6 +51,7 @@ export class MainComponent implements OnInit {
         this.get_filtered_teams(sport_id)
       }
     )
+    //creating the array of highlights
     this.example_highlight_arr = []
     Highlight.getHighlightFromJSONs()
       .then((res) => {
@@ -83,6 +86,7 @@ export class MainComponent implements OnInit {
     );
   }
 
+  //getting the sports team from our database
   private async getSportTeam() {
     return (await Axios.get("http://localhost:3000/sportteam")).data;
   }
@@ -92,6 +96,7 @@ export class MainComponent implements OnInit {
     console.log(this.sport_team)
   }
 
+  //filtering team names to lower case
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
     return this.team_names.filter((option: string) => option.toLowerCase().includes(filterValue));
