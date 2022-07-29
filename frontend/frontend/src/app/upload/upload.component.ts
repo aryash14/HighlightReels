@@ -39,7 +39,7 @@ export class UploadComponent implements OnInit {
     );
 
     this.search = new UntypedFormControl('');
-      
+    
     this.sport_selected_id.valueChanges.subscribe( sport_id => {
         this.get_filtered_teams(sport_id)
       }
