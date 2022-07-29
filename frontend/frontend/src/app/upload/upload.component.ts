@@ -1,3 +1,4 @@
+//our imports
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {UntypedFormControl} from "@angular/forms";
 import {map, Observable, startWith} from "rxjs";
@@ -6,6 +7,7 @@ import {DomSanitizer} from "@angular/platform-browser";
 import Axios from "axios";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
+//associating upload component with css and html files
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
@@ -14,6 +16,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 
 // Uploadcomponent Class
 export class UploadComponent implements OnInit {
+  //variables
   team = new UntypedFormControl('');
   filteredOptions: Observable<string[]>;
   title: any;
@@ -28,6 +31,7 @@ export class UploadComponent implements OnInit {
   sport_team: any;
   filter_team: any;
 
+  //constructor
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public domSanitizer: DomSanitizer, private _snackBar: MatSnackBar) {
     this.filteredOptions = this.search.valueChanges.pipe(
       startWith(''),
@@ -35,7 +39,7 @@ export class UploadComponent implements OnInit {
     );
 
     this.search = new UntypedFormControl('');
-
+      
     this.sport_selected_id.valueChanges.subscribe( sport_id => {
         this.get_filtered_teams(sport_id)
       }
@@ -48,6 +52,7 @@ export class UploadComponent implements OnInit {
 
   }
 
+  //converting team names to lower case and filtering them
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
     return this.team_names.filter((option: string) => option.toLowerCase().includes(filterValue));
@@ -74,6 +79,7 @@ export class UploadComponent implements OnInit {
     );
   }
 
+  //private function to get the teams from the database
   private async getSportTeam() {
     return (await Axios.get("http://localhost:3000/sportteam")).data;
   }
