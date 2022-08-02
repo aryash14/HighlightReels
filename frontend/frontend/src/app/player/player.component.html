@@ -14,7 +14,7 @@
 
   <div class="action">
     <div class="icon_text_btn">
-      <button mat-icon-button color="primary" aria-label="Example icon button with a home icon">
+      <button mat-icon-button color="primary" aria-label="Example icon button with a home icon" (click) = "like()">
       <span class="material-symbols-outlined">
       thumb_up
       </span>
@@ -23,7 +23,7 @@
     </div>
 
     <div class="icon_text_btn">
-      <button class="icon_btn" mat-icon-button color="primary" aria-label="Example icon button with a home icon">
+      <button class="icon_btn" mat-icon-button color="primary" aria-label="Example icon button with a home icon" (click) = "dislike()">
       <span class="material-symbols-outlined">
       thumb_down
       </span>

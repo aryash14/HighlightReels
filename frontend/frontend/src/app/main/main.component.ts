@@ -11,12 +11,13 @@ import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import Axios from "axios";
 
 //associating the html and css with component
+// let highlight: any;
+
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
-
 // MainComponent class
 export class MainComponent implements OnInit {
   mobileQuery: MediaQueryList;
@@ -59,7 +60,9 @@ export class MainComponent implements OnInit {
         for (const x of this.example_highlight_arr) {
           x.url = this.domSanitizer.bypassSecurityTrustResourceUrl(x.url);
         }
+        // this.example_highlight = this.example_highlight_arr[this.ptr];
         this.example_highlight = this.example_highlight_arr[this.ptr];
+        // highlight = this.example_highlight;
         this.loaded = true
     });
 
@@ -110,6 +113,7 @@ export class MainComponent implements OnInit {
     this.ptr++;
     // @ts-ignore
     this.example_highlight = this.example_highlight_arr[this.ptr];
+    // highlight = this.example_highlight;
     // @ts-ignore
     this.child.ngOnInit();
 
@@ -123,6 +127,7 @@ export class MainComponent implements OnInit {
     this.ptr--;
     // @ts-ignore
     this.example_highlight = this.example_highlight_arr[this.ptr];
+    // highlight = this.example_highlight;
     // @ts-ignore
     this.child.ngOnInit();
   }

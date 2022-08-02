@@ -11,6 +11,23 @@ router.get('/', async function(req, res, next) {
     res.json(result);
 });
 
+router.post('/likedislike', async function (req, res) {
+    if (req.body.like) {
+        let new_like = req.body.like;
+        let id = req.body.id; 
+        console.log("id", id);
+        await Highlight.findOneAndUpdate({_id: id}, {like: new_like})
+    }
+
+    if (req.body.dislike) {
+        let new_like = req.body.dislike;
+        let id = req.body.id; 
+        await Highlight.findOneAndUpdate({_id: id}, {dislike: new_like})
+    }
+
+
+})
+
 router.post('/upload', async function (req, res) {
 
     if (! req.body.title || req.body.title === '' || !req.body.desc || req.body.desc === '' ||
