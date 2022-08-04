@@ -9,6 +9,10 @@ import {H} from "@angular/cdk/keycodes";
 import {PlayerComponent} from "../player/player.component";
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import Axios from "axios";
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {MatChipInputEvent} from "@angular/material/chips";
+import {MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
+import axios from "axios";
 
 //associating the html and css with component
 // let highlight: any;
@@ -37,7 +41,11 @@ export class MainComponent implements OnInit {
   sport_team: any;
   filter_team: any;
   loaded = false;
-  //construcutor for our main component
+
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+  selected_teams: string[] = [];
+
+  //constructor for our main component
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public domSanitizer: DomSanitizer) {
     this.filteredOptions = this.search.valueChanges.pipe(
       startWith(''),
@@ -68,12 +76,10 @@ export class MainComponent implements OnInit {
         console.log(this.example_highlight_arr)
         console.log(this.filtered_highlight_arr)
         this.example_highlight = this.filtered_highlight_arr[this.ptr];
-        
+
         // highlight = this.example_highlight;
         this.loaded = true
     });
-    
-    // if ()
   }
 
   // Call filter on new selected teams
@@ -99,6 +105,8 @@ export class MainComponent implements OnInit {
       startWith(''),
       map((value: string) => this._filter(value || '')),
     );
+
+    this.selected_teams = [];
   }
 
   //getting the sports team from our database
@@ -162,10 +170,59 @@ export class MainComponent implements OnInit {
           // this.filtered_highlight_arr.push(highlight);
           found = true;
       }
-      if (found === false){
+      if (!found){
         this.filtered_highlight_arr.splice(i,1);
       }
     }
     this.example_highlight = this.filtered_highlight_arr[this.ptr];
   }
+
+  remove(x: string) {
+    const i = this.selected_teams.indexOf(x);
+    this.selected_teams.splice(i, 1);
+    this.filterHighlight();
+
+  }
+
+  add(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
+
+    if (value) {
+      this.selected_teams.push(value);
+    }
+
+    // Clear the input value
+    event.chipInput!.clear();
+
+    this.search.setValue(null);
+  }
+
+  selected(event: MatAutocompleteSelectedEvent): void {
+    if (this.selected_teams.indexOf(event.option.viewValue) >= 0) {
+      this.search.setValue('');
+      return;
+    }
+    this.selected_teams.push(event.option.viewValue);
+    // this.fruitInput.nativeElement.value = '';
+    this.search.setValue(null);
+    this.filterHighlight();
+  }
+
+
+  private filterHighlight(): void {
+    axios.post('http://localhost:3000/highlight/filter', {
+      sports: this.sport_selected_id.value,
+      teams: this.selected_teams
+    })
+      .then(res => {
+        this.filtered_highlight_arr = Highlight.getHighlightFromJSONsWithAGivenJSON(res.data);
+        for (const x of this.filtered_highlight_arr) {
+          x.url = this.domSanitizer.bypassSecurityTrustResourceUrl(x.url);
+        }
+        this.example_highlight = this.filtered_highlight_arr[this.ptr];
+
+      })
+  }
+
+
 }

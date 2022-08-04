@@ -41,6 +41,18 @@ export class Highlight {
     return HighlightArray;
   }
 
+  static getHighlightFromJSONsWithAGivenJSON(j: any) {
+    let HighlightArray = []
+    for (const x of j) {
+      // console.log(x.sport);
+      console.log(x.team);
+      let url = 'https://www.youtube.com/embed/' + x.youtube_id;
+      HighlightArray.push(new Highlight(x.title, x.desc, url, x._id, x.youtube_id, x.like, x.dislike, x.sport._id, x.team._id));
+    }
+    console.log(HighlightArray)
+    return HighlightArray;
+  }
+
   // getSelectedLike(): boolean {
   //   return this.selected_like;
   // }

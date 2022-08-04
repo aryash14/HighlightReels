@@ -5,7 +5,6 @@ const Team = require('../models/team')
 const Highlight = require('../models/highlights')
 const mongoose = require("mongoose");
 
-// get all the sport and team
 router.get('/', async function(req, res, next) {
     let result = await Highlight.find({}).populate('sport').populate('team');
     res.json(result);
@@ -72,5 +71,60 @@ router.post('/upload', async function (req, res) {
     res.json({'_id': result._id, 'msg': 'Upload Success', 'success': true});
 });
 
+router.post('/filter', async function (req, res) {
+    let sports = req.body.sports;
+    let teams = req.body.teams;
+
+    let hasNoFootBall = true, hasNoBasketBall = true, hasNoBaseball = true;
+    let allFootBallTeam = getStrSportName((await Sport.find({name: 'Football'}).populate('team'))[0].team);
+    let allBasketBallTeam = getStrSportName((await Sport.find({name: 'Basketball'}).populate('team'))[0].team);
+    let allBaseballTeam = getStrSportName((await Sport.find({name: 'Baseball'}).populate('team'))[0].team);
+
+    for (let x of teams) {
+        if (allFootBallTeam.indexOf(x) >= 0) {
+            hasNoFootBall = false;
+        }
+        if (allBasketBallTeam.indexOf(x) >= 0) {
+            hasNoBasketBall = false;
+        }
+        if (allBaseballTeam.indexOf(x) >= 0) {
+            hasNoBasketBall = false;
+        }
+    }
+    console.log(hasNoBasketBall);
+    console.log(sports)
+    if (hasNoFootBall && sports.indexOf('62e2c2c49bf026bd163b9b4b') >= 0) {
+        teams = teams.concat(allFootBallTeam)
+    }
+    if (hasNoBasketBall && sports.indexOf('62e2c2c59bf026bd163b9b57') >= 0) {
+        teams = teams.concat(allBasketBallTeam)
+    }
+    if (hasNoBaseball && sports.indexOf('62e2c2c59bf026bd163b9b63') >= 0) {
+        teams = teams.concat(allBaseballTeam)
+    }
+
+    let allHighlight = await Highlight.find({}).populate('sport').populate('team');
+
+    let filtered = [];
+
+    for (let x of allHighlight) {
+        for (let y of teams) {
+            if (x.team.name === y) {
+                filtered.push(x);
+                break;
+            }
+        }
+    }
+
+    res.json(filtered);
+});
+
+function getStrSportName(j) {
+    let str = [];
+    for (let x of j) {
+        str.push(x.name);
+    }
+    return str;
+}
 module.exports = router;
 

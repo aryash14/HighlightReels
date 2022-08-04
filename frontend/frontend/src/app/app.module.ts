@@ -16,6 +16,7 @@ import {MatListModule} from "@angular/material/list";
 import { PlayButtonComponent } from './play-button/play-button.component';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatChipsModule} from "@angular/material/chips";
 
 @NgModule({
   declarations: [
@@ -26,18 +27,19 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     PlayButtonComponent,
 
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    MatAutocompleteModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatListModule,
-    FormsModule,
-    MatSnackBarModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MaterialModule,
+        MatAutocompleteModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatListModule,
+        FormsModule,
+        MatSnackBarModule,
+        MatChipsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
