@@ -11,7 +11,9 @@ export class Highlight {
   selected_dislike = false;
   youtube_id = '';
   domSanitizer: any;
-  constructor(title: string, desc: string, url: any, id: string, yid: string, like: number, dislike: number){
+  sport = '';
+  team = '';
+  constructor(title: string, desc: string, url: any, id: string, yid: string, like: number, dislike: number, sport: string, team: string){ // sport: string, team: string
     this.domSanitizer = DomSanitizer;
     this.title = title;
     this.desc = desc;
@@ -20,6 +22,8 @@ export class Highlight {
     this.youtube_id = yid;
     this.like = like;
     this.dislike = dislike;
+    this.sport = sport;
+    this.team = team;
     // this.url += '?autoplay=1';
 
   }
@@ -28,9 +32,10 @@ export class Highlight {
     let j = await Axios.get('http://localhost:3000/highlight');
     let HighlightArray = []
     for (const x of j.data) {
-
+      // console.log(x.sport);
+      console.log(x.team);
       let url = 'https://www.youtube.com/embed/' + x.youtube_id;
-      HighlightArray.push(new Highlight(x.title, x.desc, url, x._id, x.youtube_id, x.like, x.dislike));
+      HighlightArray.push(new Highlight(x.title, x.desc, url, x._id, x.youtube_id, x.like, x.dislike, x.sport._id, x.team._id));
     }
     console.log(HighlightArray)
     return HighlightArray;

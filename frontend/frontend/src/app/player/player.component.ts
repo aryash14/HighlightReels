@@ -11,7 +11,7 @@ import Axios from 'axios';
 
 // PlayerComponent class
 export class PlayerComponent implements OnInit {
-  @Input() highlight: Highlight = new  Highlight('', '', '', '', '', 0, 0);
+  @Input() highlight: Highlight = new  Highlight('', '', '', '', '', 0, 0,'','');
   url: SafeResourceUrl | undefined;
   constructor(public domSanitizer: DomSanitizer) {
 

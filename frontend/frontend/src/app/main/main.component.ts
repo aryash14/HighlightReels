@@ -2,7 +2,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ChangeDetectorRef, OnDestroy} from '@angular/core';
 import {MediaMatcher} from '@angular/cdk/layout';
-import {map, Observable, startWith,} from "rxjs";
+import {filter, map, Observable, startWith,} from "rxjs";
 import {UntypedFormControl, ReactiveFormsModule} from "@angular/forms";
 import {Highlight} from "../Highlight";
 import {H} from "@angular/cdk/keycodes";
@@ -29,7 +29,8 @@ export class MainComponent implements OnInit {
   search = new UntypedFormControl('');
   example_highlight: any;
   public example_highlight_arr: (Highlight | any)[];
-  ptr = 0
+  public filtered_highlight_arr: (Highlight | any)[];
+  ptr = 0;
   @ViewChild(PlayerComponent) child: PlayerComponent | undefined;
 
   sport_selected_id = new UntypedFormControl('');
@@ -49,11 +50,12 @@ export class MainComponent implements OnInit {
 
     // Call filter on new selected sports
     this.sport_selected_id.valueChanges.subscribe( sport_id => {
-        this.get_filtered_teams(sport_id)
+      this.get_filtered_teams(sport_id)
       }
     )
     //creating the array of highlights
-    this.example_highlight_arr = []
+    this.example_highlight_arr = [];
+    this.filtered_highlight_arr = [];
     Highlight.getHighlightFromJSONs()
       .then((res) => {
         this.example_highlight_arr = res;
@@ -61,26 +63,36 @@ export class MainComponent implements OnInit {
           x.url = this.domSanitizer.bypassSecurityTrustResourceUrl(x.url);
         }
         // this.example_highlight = this.example_highlight_arr[this.ptr];
-        this.example_highlight = this.example_highlight_arr[this.ptr];
+        // this.filtered_highlight_arr = JSON.parse(JSON.stringify(this.example_highlight_arr));
+        this.filtered_highlight_arr = this.example_highlight_arr.slice();
+        console.log(this.example_highlight_arr)
+        console.log(this.filtered_highlight_arr)
+        this.example_highlight = this.filtered_highlight_arr[this.ptr];
+        
         // highlight = this.example_highlight;
         this.loaded = true
     });
-
-
+    
+    // if ()
   }
 
   // Call filter on new selected teams
   private get_filtered_teams(sport_id: any) {
+    this.filerSports(sport_id);
     let team = [];
     this.team_names = []
+
     for (const x of this.sport_team) {
-      if (x._id === sport_id) {
-        team = x.team;
+      for (const item of sport_id) {
+        console.log(item);
+        if (x._id === item) {
+          team = x.team;
+          for (const x of team) {
+            // @ts-ignore
+            this.team_names.push(x.name)
+          }
+        }
       }
-    }
-    for (const x of team) {
-      // @ts-ignore
-      this.team_names.push(x.name)
     }
 
     this.filteredOptions = this.search.valueChanges.pipe(
@@ -107,12 +119,12 @@ export class MainComponent implements OnInit {
 
   // Navigate to next video in the array
   next_arrow(): void {
-    if (this.ptr == this.example_highlight_arr.length - 1) {
+    if (this.ptr == this.filtered_highlight_arr.length - 1) {
       return;
     }
     this.ptr++;
     // @ts-ignore
-    this.example_highlight = this.example_highlight_arr[this.ptr];
+    this.example_highlight = this.filtered_highlight_arr[this.ptr];
     // highlight = this.example_highlight;
     // @ts-ignore
     this.child.ngOnInit();
@@ -126,10 +138,34 @@ export class MainComponent implements OnInit {
     }
     this.ptr--;
     // @ts-ignore
-    this.example_highlight = this.example_highlight_arr[this.ptr];
+    this.example_highlight = this.filtered_highlight_arr[this.ptr];
     // highlight = this.example_highlight;
     // @ts-ignore
     this.child.ngOnInit();
   }
 
+  private filerSports(sport_id: any) {
+    this.filtered_highlight_arr = this.example_highlight_arr.slice();
+    this.ptr = 0;
+    this.example_highlight = this.filtered_highlight_arr[this.ptr];
+    if (sport_id.length === 0) {
+      return;
+    }
+
+    for (let i = this.example_highlight_arr.length - 1; i >= 0; i--) {
+      let found = false;
+      let highlight = this.example_highlight_arr[i];
+      // console.log(this.sport_team);
+      for (const x of sport_id) {
+        console.log(x);
+        if (x === highlight.sport)
+          // this.filtered_highlight_arr.push(highlight);
+          found = true;
+      }
+      if (found === false){
+        this.filtered_highlight_arr.splice(i,1);
+      }
+    }
+    this.example_highlight = this.filtered_highlight_arr[this.ptr];
+  }
 }
