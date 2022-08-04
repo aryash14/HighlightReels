@@ -88,7 +88,7 @@ router.post('/filter', async function (req, res) {
             hasNoBasketBall = false;
         }
         if (allBaseballTeam.indexOf(x) >= 0) {
-            hasNoBasketBall = false;
+            hasNoBaseball = false;
         }
     }
     console.log(hasNoBasketBall);
