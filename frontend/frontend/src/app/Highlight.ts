@@ -29,7 +29,7 @@ export class Highlight {
   }
 
   static async getHighlightFromJSONs() {
-    let j = await Axios.get('http://localhost:3000/highlight');
+    let j = await Axios.get('https://highlightreels.netlify.app/highlight');
     let HighlightArray = []
     for (const x of j.data) {
       // console.log(x.sport);
