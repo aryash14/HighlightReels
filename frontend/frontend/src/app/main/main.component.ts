@@ -111,7 +111,7 @@ export class MainComponent implements OnInit {
 
   //getting the sports team from our database
   private async getSportTeam() {
-    return (await Axios.get("https://highlightreels.netlify.app/sportteam")).data;
+    return (await Axios.get("https://highlight-reels.herokuapp.com/sportteam")).data;
   }
 
   async ngOnInit(): Promise<any> {
@@ -210,7 +210,7 @@ export class MainComponent implements OnInit {
 
 
   private filterHighlight(): void {
-    axios.post('https://highlightreels.netlify.app/highlight/filter', {
+    axios.post('https://highlight-reels.herokuapp.com/highlight/filter', {
       sports: this.sport_selected_id.value,
       teams: this.selected_teams
     })

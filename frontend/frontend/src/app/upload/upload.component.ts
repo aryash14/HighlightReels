@@ -81,12 +81,12 @@ export class UploadComponent implements OnInit {
 
   //private function to get the teams from the database
   private async getSportTeam() {
-    return (await Axios.get("https://highlightreels.netlify.app/sportteam")).data;
+    return (await Axios.get("https://highlight-reels.herokuapp.com/sportteam")).data;
   }
 
   // Post data to MongoDB database
   upload() {
-    Axios.post("https://highlightreels.netlify.app/highlight/upload", {
+    Axios.post("https://highlight-reels.herokuapp.com/highlight/upload", {
       title: this.title,
       desc: this.desc,
       youtube_id: this.youtube_url,

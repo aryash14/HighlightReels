@@ -39,7 +39,7 @@ export class PlayerComponent implements OnInit {
       curr_highlight.selected_like = true;
     }
     console.log("like counter update");
-    Axios.post("https://highlightreels.netlify.app/highlight/likedislike", {
+    Axios.post("https://highlight-reels.herokuapp.com/highlight/likedislike", {
       id: curr_highlight.id,
       like: curr_highlight.like,
       dislike : curr_highlight.dislike
@@ -63,7 +63,7 @@ export class PlayerComponent implements OnInit {
       curr_highlight.selected_dislike = true;
     }
     console.log("dislike counter update");
-    Axios.post("https://highlightreels.netlify.app/highlight/likedislike", {
+    Axios.post("https://highlight-reels.herokuapp.com/highlight/likedislike", {
       id: curr_highlight.id,
       like: curr_highlight.like,
       dislike : curr_highlight.dislike
