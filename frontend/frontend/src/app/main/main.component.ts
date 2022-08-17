@@ -29,7 +29,7 @@ export class MainComponent implements OnInit {
   filteredOptions: Observable<string[]>;
   //declaring variables
   teams: any;
-  team_names = [];
+  private team_names = [];
   search = new UntypedFormControl('');
   example_highlight: any;
   public example_highlight_arr: (Highlight | any)[];
