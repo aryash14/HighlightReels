@@ -60,8 +60,8 @@
     </mat-sidenav>
 
     <mat-sidenav-content *ngIf="loaded">
-      <app-player [highlight]="example_highlight"></app-player>
-
+      <app-player *ngIf="example_highlight" [highlight]="example_highlight"></app-player>
+      <p *ngIf="!example_highlight" style="margin-top: 200px; margin-left: 200px;" >No highlight with current filter</p>
       <div class="other_vid">
         <div style="width: 20px; display: inline-block"></div>
         <app-play-button [highlight]="x" *ngFor="let x of filtered_highlight_arr"></app-play-button>
