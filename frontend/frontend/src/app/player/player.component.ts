@@ -22,7 +22,7 @@ export class PlayerComponent implements OnInit {
 
   }
 
-  like(): void {
+  async like() {
     let curr_highlight = this.highlight;
     if (curr_highlight.selected_like) {
       curr_highlight.like -= 1;
@@ -39,14 +39,14 @@ export class PlayerComponent implements OnInit {
       curr_highlight.selected_like = true;
     }
     console.log("like counter update");
-    Axios.post("https://highlight-reels.herokuapp.com/highlight/likedislike", {
+    await Axios.post("https://highlight-reels.herokuapp.com/highlight/likedislike", {
       id: curr_highlight.id,
       like: curr_highlight.like,
       dislike : curr_highlight.dislike
     })
   }
   
-  dislike(): void {
+  async dislike() {
     let curr_highlight = this.highlight;
     if (curr_highlight.selected_dislike) {
       curr_highlight.dislike -= 1;
@@ -63,7 +63,7 @@ export class PlayerComponent implements OnInit {
       curr_highlight.selected_dislike = true;
     }
     console.log("dislike counter update");
-    Axios.post("https://highlight-reels.herokuapp.com/highlight/likedislike", {
+    await Axios.post("https://highlight-reels.herokuapp.com/highlight/likedislike", {
       id: curr_highlight.id,
       like: curr_highlight.like,
       dislike : curr_highlight.dislike
