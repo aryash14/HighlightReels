@@ -1,3 +1,4 @@
+// Highlight Controller for our MVC designe pattern
 var express = require('express');
 var router = express.Router();
 const Sport = require('../models/sport')

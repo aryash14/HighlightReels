@@ -1,3 +1,4 @@
+// Model for our MVC designe pattern to declare the schema for teams
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
