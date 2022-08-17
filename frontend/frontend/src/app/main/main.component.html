@@ -8,7 +8,7 @@
                          [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
                  [fixedInViewport]="mobileQuery.matches" fixedTopGap="56"
-    [opened]='!mobileQuery.matches'>
+                 [opened]='!mobileQuery.matches'>
 
       <div class="sidenav_content">
         <div mat-subheader>Filter</div>
@@ -22,11 +22,11 @@
           </mat-form-field>
 
           <mat-form-field class="example-full-width" appearance="outline">
-<!--            <input type="text"-->
-<!--                   placeholder="Search"-->
-<!--                   matInput-->
-<!--                   [formControl]="search"-->
-<!--                   [matAutocomplete]="auto">-->
+            <!--            <input type="text"-->
+            <!--                   placeholder="Search"-->
+            <!--                   matInput-->
+            <!--                   [formControl]="search"-->
+            <!--                   [matAutocomplete]="auto">-->
 
             <mat-chip-list #chipList aria-label="">
               <mat-chip
@@ -60,22 +60,22 @@
     </mat-sidenav>
 
     <mat-sidenav-content *ngIf="loaded">
-      <app-player [highlight]="example_highlight"></app-player>
-
+      <app-player *ngIf="example_highlight" [highlight]="example_highlight"></app-player>
+      <p *ngIf="!example_highlight" style="margin-top: 200px; margin-left: 200px;" >No highlight with current filter</p>
       <div class="other_vid">
         <div style="width: 20px; display: inline-block"></div>
         <app-play-button [highlight]="x" *ngFor="let x of filtered_highlight_arr"></app-play-button>
       </div>
       <div class="next-arrow">
-          <button mat-icon-button aria-label="Skip to next video" (click) = "next_arrow()">
-            <mat-icon>skip_next</mat-icon>
-          </button>
+        <button mat-icon-button aria-label="Skip to next video" (click) = "next_arrow()">
+          <mat-icon>skip_next</mat-icon>
+        </button>
       </div>
       <div class="previous-arrow">
         <button mat-icon-button aria-label="Skip to previous video" (click) = "prev_arrow()">
           <mat-icon>skip_previous</mat-icon>
         </button>
-    </div>
+      </div>
       <a class="fab" mat-fab color="primary" aria-label="Example icon button with a delete icon" routerLink="upload" >
         <mat-icon>add</mat-icon>
       </a>
