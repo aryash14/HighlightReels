@@ -4,8 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var sportTeamRouter = require('./routes/sport_team');
-var highlightRouter = require('./routes/highlight');
+var sportTeamRouter = require('./controller/sport_team');
+var highlightRouter = require('./controller/highlight');
 const mongoose = require("mongoose");
 const cors = require("cors")
 var app = express();
